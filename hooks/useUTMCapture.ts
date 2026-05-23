@@ -10,6 +10,9 @@ export function useUTMCapture() {
     // Only run this on the client side
     if (typeof window === "undefined") return;
 
+    // Safety check: if searchParams is somehow null, bail out early
+    if (!searchParams) return;
+
     // The standard UTM tags marketers use
     const utmTags = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
     let foundUTMs = false;
