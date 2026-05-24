@@ -26,6 +26,17 @@ export async function POST(request: Request) {
       );
     }
 
+    // --- CODERABBIT FIX 1: Whitelist UTM Data ---
+    const safeUtmData: Record<string, string> = {};
+    const allowedUtmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+    if (utmData && typeof utmData === 'object') {
+      allowedUtmKeys.forEach(key => {
+        if (utmData[key] && typeof utmData[key] === 'string') {
+          safeUtmData[key] = utmData[key].slice(0, 100); // Limit length to prevent overflow attacks
+        }
+      });
+    }
+
     const supabase = await createRoute();
 
     const origin = (() => {
@@ -37,7 +48,8 @@ export async function POST(request: Request) {
       }
     })();
 
-    const finalRedirectUrl = origin ? `${origin}/auth/callback`.replace(/\/$/, '') : undefined;
+    // --- CODERABBIT FIX 2: Correct URL Trailing Slash Order ---
+    const finalRedirectUrl = origin ? `${origin.replace(/\/$/, '')}/auth/callback` : undefined;
 
     // 2. Inject utmData into the Supabase user metadata
     const { data, error } = await supabase.auth.signUp({
@@ -49,18 +61,16 @@ export async function POST(request: Request) {
           name: sanitizedName,
           email: sanitizedEmail,
           referral_code: sanitizedReferralCode,
-          ...utmData, // <-- This saves the marketing tags permanently to the DB
+          ...safeUtmData, // <-- Spreading the safe, whitelisted object
         }
       }
     });
 
     if (error) {
       logger.error({ route: 'app/api/auth/register/route.ts' }, 'Signup error:', error);
-      // ... (keep your existing error handling logic for 422/user_already_exists here)
       return new Response(JSON.stringify({ error: error.message }), { status: 500 });
     }
 
-    // ... (keep your existing success return logic)
     const requiresVerification = !data.session;
     return new Response(JSON.stringify({ message: 'Registration successful!', requiresVerification }), { status: 200 });
 

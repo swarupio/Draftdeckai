@@ -5,7 +5,6 @@ const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS ?? 'http://localhost:3000')
   .split(',')
   .map((o) => o.trim());
 
-// Deployment error detection
 const DEPLOYMENT_ERROR_PATTERNS = [
   /DEPLOYMENT_NOT_FOUND/i,
   /503|504/,
@@ -13,7 +12,14 @@ const DEPLOYMENT_ERROR_PATTERNS = [
   /deployment.*error/i,
 ];
 
-// Log error for monitoring
+function isDeploymentError(response: Response): boolean {
+  const status = response.status;
+  if (status === 503 || status === 504 || status >= 500) {
+    return true;
+  }
+  return false;
+}
+
 async function logError(
   pathname: string,
   error: string,
@@ -23,14 +29,6 @@ async function logError(
   if (process.env.NODE_ENV === 'development') {
     console.error(`[ERROR] ${pathname}: ${error} (${status}) at ${new Date(timestamp).toISOString()}`);
   }
-}
-
-function isDeploymentError(response: Response): boolean {
-  const status = response.status;
-  if (status === 503 || status === 504 || status >= 500) {
-    return true;
-  }
-  return false;
 }
 
 const CORS_HDRS = {

@@ -34,7 +34,6 @@ export const PWAInstallButton = React.forwardRef<HTMLButtonElement, PWAInstallBu
 
     if (isInstalled) {
       return (
-        // Visible ring and aria-label assigned for the installed button 
         <Button
           ref={ref}
           variant={variant}
@@ -54,7 +53,6 @@ export const PWAInstallButton = React.forwardRef<HTMLButtonElement, PWAInstallBu
     }
 
     return (
-      // main install button with focus-visible styles and aria-label for accessibility
       <Button
         ref={ref}
         variant={variant}

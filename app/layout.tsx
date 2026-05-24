@@ -10,7 +10,7 @@ import { FeedbackPopup } from "@/components/feedback-popup";
 import { DeploymentStatusBanner } from "@/components/deployment-status-banner";
 import type { Metadata } from "next";
 import PlausibleProvider from 'next-plausible';
-import { useUTMCapture } from "@/hooks/useUTMCapture";
+import { UTMTracker } from '@/components/utm-tracker';
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({
@@ -104,6 +104,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} ${poppins.variable}`}>
+        <UTMTracker />
         <DeploymentStatusBanner />
         <Providers>
           <CursorProvider>
@@ -116,4 +117,5 @@ export default function RootLayout({
       </body>
     </html>
   );
+  
 }
