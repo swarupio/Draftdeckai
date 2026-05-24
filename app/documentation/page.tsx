@@ -12,6 +12,9 @@ export const metadata: Metadata = {
     title: "Documentation | DraftDeckAI",
     description: "Learn how to use DraftDeckAI to create stunning resumes, presentations, and letters. Comprehensive guides and API documentation.",
   },
+  alternates: {
+    canonical: "https://draftdeckai.com/documentation",
+  },
 };
 
 export default function DocumentationPage() {

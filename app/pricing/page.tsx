@@ -14,6 +14,9 @@ export const metadata: Metadata = {
     title: "Pricing | DraftDeckAI",
     description: "Explore our flexible pricing plans for individuals and teams. Get started for free and upgrade as you grow.",
   },
+  alternates: {
+    canonical: "https://draftdeckai.com/pricing",
+  },
 };
 
 export default function PricingPage() {

@@ -46,6 +46,9 @@ export const metadata: Metadata = {
     title: "About Us | DraftDeckAI",
     description: "Learn about DraftDeckAI, our mission to democratize professional document creation, and the open-source community behind our platform.",
   },
+  alternates: {
+    canonical: "https://draftdeckai.com/about",
+  },
 };
 
 export default function AboutPage() {

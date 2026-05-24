@@ -6,6 +6,7 @@ import { TestimonialsSection } from "@/components/testimonials-section";
 import { DocumentCard } from "@/components/document-card";
 import { TooltipWithShortcut } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   File as FileIcon,
@@ -45,6 +46,9 @@ export const metadata: Metadata = {
   twitter: {
     title: "DraftDeckAI - Best AI Document Creator",
     description: "DraftDeckAI uses advanced AI to create ATS-friendly resumes, stunning presentations, and professional letters in seconds.",
+  },
+  alternates: {
+    canonical: "https://draftdeckai.com",
   },
 };
 
