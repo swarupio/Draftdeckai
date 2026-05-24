@@ -8,38 +8,22 @@ export default function ClientRedirects() {
   const pathname = usePathname();
 
   useEffect(() => {
-    // Example: Redirect `/old` to `/new`
+    // Guard clause: stop if pathname is null (prevents potential crashes)
+    if (!pathname) return;
+
+    // 1. Logic-based redirects
     if (pathname === '/old') {
       router.replace('/new');
     }
 
-    // Example: Protect `/dashboard` if not logged in
+    // 2. Auth protection
     if (pathname.startsWith('/dashboard')) {
-      const isLoggedIn = false; // Replace with real auth check (e.g., localStorage, cookies)
+      const isLoggedIn = false; // Replace with your real auth logic
       if (!isLoggedIn) {
         router.replace('/login');
       }
     }
-    
-    // Fix for about page
-    if (pathname === '/about/') {
-      router.replace('/about');
-    }
-    
-    // Fix for resume page
-    if (pathname === '/resume/') {
-      router.replace('/resume');
-    }
-    
-    // Fix for other pages with trailing slash issues
-    if (pathname === '/letter/') {
-      router.replace('/letter');
-    }
-    
-    if (pathname === '/presentation/') {
-      router.replace('/presentation');
-    }
   }, [pathname, router]);
 
-  return null; // This component doesn't render anything
+  return null; // This component is for logic only, it does not render UI
 }
