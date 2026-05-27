@@ -27,7 +27,6 @@ Whether you're a seasoned developer, a design enthusiast, a documentation wizard
 - [🚀 Quick Start Guide](#-quick-start-guide)
 - [🔍 Finding Your First Issue](#-finding-your-first-issue)
 - [🤝 Ways to Contribute](#-ways-to-contribute)
-- [⚙️ Development Setup](#️-development-setup)
 - [🌿 Git Workflow & Best Practices](#-git-workflow--best-practices)
 - [📝 Coding Standards & Testing](#-coding-standards--testing)
 - [📋 Pull Request Process](#-pull-request-process)
@@ -76,9 +75,9 @@ Ready to contribute? Here's the fastest way to get started:
 1. Fork the repository using the **Fork** button (top right of the GitHub page).
 2. Clone your fork:
    ```bash
-   git clone [https://github.com/your-username/DraftDeckAI.git](https://github.com/your-username/DraftDeckAI.git) 
+   git clone https://github.com/your-username/DraftDeckAI.git
    cd DraftDeckAI
-   ```
+```
 *(Note: Replace `your-username` with your actual GitHub username).*
 
 ### 2️⃣ **Create a New Branch**
@@ -100,13 +99,13 @@ DraftDeckAI requires several API keys for full functionality.
 
 1. Create a `.env.local` file in your project root by copying the example file:
    ```bash
-   cp .env.local.example .env.local
-   ```
+cp .env.local.example .env.local
+```
 2. Add the required environment variables. 
 
 ```bash
 # App Configuration
-NEXT_PUBLIC_APP_NAME=DocMagic
+NEXT_PUBLIC_APP_NAME=DraftDeckAI
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 # Supabase (Database & Auth) - REQUIRED
@@ -184,7 +183,7 @@ DraftDeckAI leverages automated tools to keep its dependencies up-to-date, ensur
 ### 🔄 **Sync Your Fork**
 Always ensure your fork is up to date before starting work:
 ```bash
-git remote add upstream [https://github.com/Muneerali199/DraftDeckAI.git](https://github.com/Muneerali199/DraftDeckAI.git)
+git remote add upstream https://github.com/Muneerali199/DraftDeckAI.git
 git checkout main
 git pull upstream main
 git push origin main
