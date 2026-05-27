@@ -70,14 +70,21 @@ If you're a GSSoC contributor, please follow these strict guidelines to ensure a
 
 Ready to contribute? Here's the fastest way to get started:
 
+### 📋 Prerequisites
+Before you begin, please ensure you have the following installed and set up:
+- **Node.js**: Version 18 or higher (check by running `node -v` in your terminal).
+- **Package Manager**: npm or yarn (check by running `npm -v`).
+- **Supabase Account**: You will need a free Supabase account for the database and authentication features.
+- **API Keys**: You will need a Google Gemini API key (free tier available) to run the AI generation workflows locally.
+
 ### 1️⃣ **Fork & Clone**
 
 1. Fork the repository using the **Fork** button (top right of the GitHub page).
 2. Clone your fork:
-   ```bash
-   git clone https://github.com/your-username/DraftDeckAI.git
+```bash
+   git clone [https://github.com/your-username/DraftDeckAI.git](https://github.com/your-username/DraftDeckAI.git)
    cd DraftDeckAI
-```
+   ```
 *(Note: Replace `your-username` with your actual GitHub username).*
 
 ### 2️⃣ **Create a New Branch**
@@ -98,9 +105,9 @@ npm install
 DraftDeckAI requires several API keys for full functionality. 
 
 1. Create a `.env.local` file in your project root by copying the example file:
-   ```bash
-cp .env.local.example .env.local
-```
+```bash
+   cp .env.local.example .env.local
+   ```
 2. Add the required environment variables. 
 
 ```bash
@@ -183,7 +190,7 @@ DraftDeckAI leverages automated tools to keep its dependencies up-to-date, ensur
 ### 🔄 **Sync Your Fork**
 Always ensure your fork is up to date before starting work:
 ```bash
-git remote add upstream https://github.com/Muneerali199/DraftDeckAI.git
+git remote add upstream [https://github.com/Muneerali199/DraftDeckAI.git](https://github.com/Muneerali199/DraftDeckAI.git)
 git checkout main
 git pull upstream main
 git push origin main
@@ -213,15 +220,18 @@ Our coding standards ensure consistency, readability, and security across the en
 - Ensure that only functional components and pages are tracked. Avoid committing files with suffixes like `.bak`, `.tmp`, or `page-old.tsx`.
 
 ### ✅ **Code Quality Checks**
-Before submitting any PR, ensure your code passes our security and style checks:
+Before submitting any PR, ensure your code passes our CI pipeline checks:
 ```bash
-# 1. Linting passes
+# 1. Linting passes without errors
 npm run lint
 
-# 2. TypeScript compilation succeeds
-npm run build
+# 2. TypeScript compilation (type-checking) succeeds
+npm run typecheck
 
-# 3. Tests pass (Crucial for API validation and Zod schemas)
+# 3. Specific Zod validation tests pass
+npx jest __tests__/lib/validation.test.ts
+
+# 4. Ensure the entire test suite passes locally
 npm run test
 ```
 
