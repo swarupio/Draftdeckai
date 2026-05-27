@@ -106,7 +106,7 @@ DraftDeckAI requires several API keys for full functionality.
 
 1. Create a `.env.local` file in your project root by copying the example file:
 ```bash
-   cp .env.local.example .env.local
+   cp .env.example .env.local
    ```
 2. Add the required environment variables. 
 
@@ -225,8 +225,8 @@ Before submitting any PR, ensure your code passes our CI pipeline checks:
 # 1. Linting passes without errors
 npm run lint
 
-# 2. TypeScript compilation (type-checking) succeeds
-npm run typecheck
+# 2. TypeScript compilation (Next.js handles type-checking during build)
+npm run build
 
 # 3. Specific Zod validation tests pass
 npx jest __tests__/lib/validation.test.ts
