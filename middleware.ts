@@ -174,10 +174,10 @@ export function middleware(req: NextRequest) {
 
     const r = NextResponse.next({ request: { headers: requestHeaders } });
     secHdrs(r);
+    
     // Use nonce-based CSP (removes unsafe-inline from script-src).
-    // Source of truth: lib/csp.ts -> buildCspWithNonce()
-    // Use nonce-based CSP (removes unsafe-inline from script-src).
-    r.headers.set('Content-Security-Policy', CSP_HEADER.replace("'unsafe-inline'", `'nonce-${nonce}'`));
+    r.headers.set('Content-Security-Policy', buildCspWithNonce(nonce));
+    
     r.headers.set('X-DNS-Prefetch-Control', 'on');
     r.headers.set('Cache-Control', 'public,max-age=300,stale-while-revalidate=3600');
     r.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');

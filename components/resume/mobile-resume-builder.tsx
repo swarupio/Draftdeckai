@@ -64,7 +64,7 @@ const MobileBuilderSkeleton = () => (
     <div className="flex-1 p-5 space-y-6 overflow-y-auto">
       {/* Section Title */}
       <Skeleton className="h-7 w-48 mb-6" />
-      
+
       {/* Input Fields */}
       <div className="space-y-2">
         <Skeleton className="h-4 w-24" />
@@ -84,7 +84,7 @@ const MobileBuilderSkeleton = () => (
           <Skeleton className="h-12 w-full rounded-lg" />
         </div>
       </div>
-      
+
       {/* Textarea/Rich Text Skeleton */}
       <div className="space-y-2 pt-4">
         <Skeleton className="h-4 w-28" />
@@ -104,6 +104,8 @@ export function MobileResumeBuilder({ templateId, resumeId }: MobileResumeBuilde
   const { toast } = useToast();
   const resumePreviewRef = useRef<ResumePreviewRef>(null);
   const [isImporting, setIsImporting] = useState(false);
+  const [isLoadingTemplate, setIsLoadingTemplate] = useState(false);
+  const [isLoadingSavedResume, setIsLoadingSavedResume] = useState(false);
   const [resumeData, setResumeData] = useState<any>(null);
   const [atsScore, setAtsScore] = useState<any>(null);
   const [manualText, setManualText] = useState("");
@@ -153,6 +155,7 @@ export function MobileResumeBuilder({ templateId, resumeId }: MobileResumeBuilde
   useEffect(() => {
     logger.info(null, 'Template ID received:', templateId);
     if (templateId) {
+      setIsLoadingTemplate(true);
       const template = RESUME_TEMPLATES.find(t => t.id === templateId);
       logger.info(null, 'Template found:', template);
       if (template) {
@@ -215,6 +218,7 @@ export function MobileResumeBuilder({ templateId, resumeId }: MobileResumeBuilde
           variant: "destructive",
         });
       }
+      setIsLoadingTemplate(false);
     }
   }, [templateId, toast]);
 
@@ -222,6 +226,7 @@ export function MobileResumeBuilder({ templateId, resumeId }: MobileResumeBuilde
   useEffect(() => {
     const loadSavedResume = async () => {
       if (!resumeId) return;
+      setIsLoadingSavedResume(true);
 
       logger.info(null, '📄 Loading saved resume:', resumeId);
 
@@ -322,6 +327,10 @@ export function MobileResumeBuilder({ templateId, resumeId }: MobileResumeBuilde
           description: "Failed to load saved resume.",
           variant: "destructive",
         });
+      }
+      finally {
+        // Add this finally block! It will run no matter what happens above.
+        setIsLoadingSavedResume(false);
       }
     };
 
@@ -1329,10 +1338,10 @@ Keywords for ATS: ${jobData.keywords?.join(', ') || jobData.skills?.join(', ') |
 
   // Add this interceptor right BEFORE the main return statement!
   // This will catch all the loading states the maintainer asked for in the issue.
-  if (isImporting || isExtractingJob || isAnalyzingAts) {
+  if (isImporting || isExtractingJob || isAnalyzingAts || isLoadingTemplate || isLoadingSavedResume) {
     return <MobileBuilderSkeleton />;
   }
-  
+
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Enhanced Background - Matching Landing Page */}
