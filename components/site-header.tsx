@@ -19,16 +19,13 @@ import {
   Coins,
   Crown,
   Gift,
- feature/session-management
   Shield,
-
   Info,
   Send,
   Layout,
   BookOpen,
   MoreHorizontal,
   Trophy
- main
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
